@@ -1,21 +1,39 @@
 # curso-SQL
 Este curso es una serie de pasos que he seguido desde el canal de pildoras informáticas
 
-# Limpieza y Normalización de Estructura de Datos
-He subido dos bases de datos desde hojas de cálculo de Google Drive a BigQuery. Al conectar y revisar los datos, noté que los nombres de las columnas en la tabla CLIENTES han cambiado automáticamente durante el proceso de importación.
+# Proyecto de Migración de Datos a BigQuery
 
-Problema Identificado
-Los nombres originales de las columnas (con tildes y caracteres especiales) se han transformado en BigQuery de la siguiente manera:
+## Índice
+- [Proceso de Migración](#proceso-de-migración-de-datos-a-bigquery)
+- [Limpieza de Datos](#limpieza-y-normalización-de-datos)
 
-Nombre Original	Nombre en BigQuery
-CÓDIGOCLIENTE	C__DIGOCLIENTE
-DIRECCIÓN	DIRECCI__N
-POBLACIÓN	POBLACI__N
-TELÉFONO	TEL__FONO
-Solución Implementada
-Para mantener consistencia y evitar problemas con caracteres especiales, crearé una vista con nombres simplificados (minúsculas y sin tildes):
+---
 
-sql
+## Proceso de Migración de Datos a BigQuery
+
+### Situación Actual
+Subí dos bases de datos desde Google Sheets a BigQuery. Durante la importación, los nombres de columnas en la tabla `CLIENTES` se transformaron automáticamente.
+
+### Problema Identificado
+Los caracteres especiales se reemplazaron con underscores:
+
+| Nombre Original   | Nombre en BigQuery  |
+|-------------------|---------------------|
+| CÓDIGOCLIENTE     | C__DIGOCLIENTE      |
+| DIRECCIÓN         | DIRECCI__N          |
+| POBLACIÓN         | POBLACI__N          |
+| TELÉFONO          | TEL__FONO           |
+
+[↑ Volver al índice](#índice)
+
+---
+
+## Limpieza y Normalización de Datos
+
+### Solución Implementada
+Creé una vista estandarizada con nombres simplificados:
+
+```sql
 CREATE OR REPLACE VIEW `sql1-458915.data_base.clientes_clean` AS
 SELECT 
   C__DIGOCLIENTE AS codigocliente,
